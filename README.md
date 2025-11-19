@@ -1,6 +1,6 @@
 # GCP/GKE Monitoring Dashboard
 
-A comprehensive monitoring dashboard for GCP and GKE resources during high-traffic events like Black Friday. Built with Next.js frontend and FastAPI backend.
+A comprehensive monitoring dashboard for GCP and GKE resources during high-traffic events. Built with Next.js frontend and FastAPI backend.
 
 ## Features
 
