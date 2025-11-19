@@ -1,0 +1,26 @@
+{
+  "projects": [
+    {
+      "project_id": "my-gcp-project-1",
+      "gke_clusters": [],
+      "monitor_url_maps": true,
+      "monitor_gke_pods": true,
+      "monitor_pubsub": true,
+      "monitor_gke_nodes": true,
+      "monitor_pod_restarts": true,
+      "monitor_latency": true,
+      "monitor_spanner": true
+    },
+    {
+      "project_id": "my-gcp-project-2",
+      "gke_clusters": [],
+      "monitor_url_maps": true,
+      "monitor_gke_pods": true,
+      "monitor_pubsub": true,
+      "monitor_gke_nodes": true,
+      "monitor_pod_restarts": true,
+      "monitor_latency": true,
+      "monitor_spanner": false
+    }
+  ]
+}

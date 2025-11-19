@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+frontend/node_modules
 
 # testing
 /coverage
@@ -11,9 +12,12 @@
 # next.js
 /.next/
 /out/
+frontend/.next/
+frontend/out/
 
 # production
 /build
+frontend/build
 
 # misc
 .DS_Store
@@ -27,6 +31,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+frontend/.env.local
 
 # vercel
 .vercel
@@ -34,3 +39,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Configuration
+config.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
