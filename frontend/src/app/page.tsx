@@ -12,8 +12,8 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdate, setLastUpdate] = useState<string>('');
 
-  // Get refresh interval from environment variable (default: 30 seconds)
-  const refreshIntervalSeconds = parseInt(process.env.NEXT_PUBLIC_REFRESH_INTERVAL || '30', 10);
+  // Get refresh interval from environment variable (default: 900 seconds)
+  const refreshIntervalSeconds = parseInt(process.env.NEXT_PUBLIC_REFRESH_INTERVAL || '900', 10);
   const refreshIntervalMs = refreshIntervalSeconds * 1000;
 
   const fetchMetrics = useCallback(async () => {
