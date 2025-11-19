@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "project_id": "my-gcp-project-1",
+      "gke_clusters": [
+        {
+          "name": "prod-cluster-1",
+          "location": "us-central1",
+          "type": "regional"
+        },
+        {
+          "name": "prod-cluster-2",
+          "location": "us-east1-b",
+          "type": "zonal"
+        }
+      ],
+      "monitor_url_maps": true,
+      "monitor_gke_pods": true,
+      "monitor_pubsub": true,
+      "monitor_gke_nodes": true,
+      "monitor_pod_restarts": true,
+      "monitor_latency": true,
+      "monitor_spanner": true
+    },
+    {
+      "project_id": "my-gcp-project-2",
+      "gke_clusters": [
+        {
+          "name": "staging-cluster",
+          "location": "europe-west1",
+          "type": "regional"
+        }
+      ],
+      "monitor_url_maps": true,
+      "monitor_gke_pods": true,
+      "monitor_pubsub": true,
+      "monitor_gke_nodes": true,
+      "monitor_pod_restarts": true,
+      "monitor_latency": true,
+      "monitor_spanner": false
+    }
+  ]
+}
