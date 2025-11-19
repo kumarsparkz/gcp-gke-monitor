@@ -45,7 +45,30 @@ A comprehensive monitoring dashboard for GCP and GKE resources during high-traff
 - GCP account with appropriate permissions
 - `gcloud` CLI installed and configured
 
-## Setup
+## Quick Start (macOS)
+
+For a fully automated setup on macOS, follow these simple steps:
+
+```bash
+git clone <repository-url> gcp-gke-monitor
+cd gcp-gke-monitor
+cp config.example.json config.json
+chmod +x setup_quickstart.sh
+./setup_quickstart.sh
+```
+
+The script will:
+- Install required dependencies (Homebrew, Node.js, Python, gcloud CLI)
+- Authenticate with Google Cloud (opens browser)
+- Set up backend and frontend dependencies
+- Start both services
+- Open your browser to http://localhost:3000
+
+**Note:** Edit `config.json` with your GCP project IDs before running the script.
+
+---
+
+## Manual Setup
 
 ### 1. Clone the repository
 
@@ -127,12 +150,12 @@ cp .env.local.example .env.local
 
 Edit `.env.local` to configure:
 - `NEXT_PUBLIC_API_URL`: Backend API URL (default: http://localhost:8000)
-- `NEXT_PUBLIC_REFRESH_INTERVAL`: Auto-refresh interval in seconds (default: 30)
+- `NEXT_PUBLIC_REFRESH_INTERVAL`: Auto-refresh interval in seconds (default: 900)
 
 Example:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXT_PUBLIC_REFRESH_INTERVAL=30
+NEXT_PUBLIC_REFRESH_INTERVAL=900
 ```
 
 ## Running the Application
@@ -167,7 +190,7 @@ This will automatically:
 
 1. Open http://localhost:3000 in your browser
 2. Toggle "Pull Metrics" to ON to start monitoring
-3. The dashboard will refresh automatically based on your configured interval (default: 30 seconds)
+3. The dashboard will refresh automatically based on your configured interval (default: 900 seconds / 15 minutes)
 4. Toggle to OFF to stop pulling metrics and reduce server load
 
 ## Configuration Options
@@ -194,7 +217,7 @@ Each project in `config.json` can be configured with these options:
 ### Frontend Configuration (`.env.local`)
 
 - `NEXT_PUBLIC_API_URL`: Backend API URL (default: http://localhost:8000)
-- `NEXT_PUBLIC_REFRESH_INTERVAL`: Auto-refresh interval in seconds (default: 30)
+- `NEXT_PUBLIC_REFRESH_INTERVAL`: Auto-refresh interval in seconds (default: 900)
 
 ## API Endpoints
 
