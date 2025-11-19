@@ -12,6 +12,10 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdate, setLastUpdate] = useState<string>('');
 
+  // Get refresh interval from environment variable (default: 30 seconds)
+  const refreshIntervalSeconds = parseInt(process.env.NEXT_PUBLIC_REFRESH_INTERVAL || '30', 10);
+  const refreshIntervalMs = refreshIntervalSeconds * 1000;
+
   const fetchMetrics = useCallback(async () => {
     if (!isMonitoring) return;
 
@@ -34,8 +38,8 @@ export default function Home() {
       // Fetch immediately when enabled
       fetchMetrics();
 
-      // Set up auto-refresh every 30 seconds
-      const interval = setInterval(fetchMetrics, 30000);
+      // Set up auto-refresh based on configured interval
+      const interval = setInterval(fetchMetrics, refreshIntervalMs);
 
       return () => clearInterval(interval);
     } else {
@@ -43,7 +47,7 @@ export default function Home() {
       setMonitoring(null);
       setLastUpdate('');
     }
-  }, [isMonitoring, fetchMetrics]);
+  }, [isMonitoring, fetchMetrics, refreshIntervalMs]);
 
   const toggleMonitoring = () => {
     setIsMonitoring((prev) => !prev);

@@ -2,18 +2,7 @@
   "projects": [
     {
       "project_id": "my-gcp-project-1",
-      "gke_clusters": [
-        {
-          "name": "prod-cluster-1",
-          "location": "us-central1",
-          "type": "regional"
-        },
-        {
-          "name": "prod-cluster-2",
-          "location": "us-east1-b",
-          "type": "zonal"
-        }
-      ],
+      "gke_clusters": [],
       "monitor_url_maps": true,
       "monitor_gke_pods": true,
       "monitor_pubsub": true,
@@ -24,13 +13,7 @@
     },
     {
       "project_id": "my-gcp-project-2",
-      "gke_clusters": [
-        {
-          "name": "staging-cluster",
-          "location": "europe-west1",
-          "type": "regional"
-        }
-      ],
+      "gke_clusters": [],
       "monitor_url_maps": true,
       "monitor_gke_pods": true,
       "monitor_pubsub": true,

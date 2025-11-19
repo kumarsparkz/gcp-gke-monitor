@@ -8,6 +8,7 @@ from ..services.gke_nodes_monitor import monitor_gke_nodes
 from ..services.pod_restart_monitor import monitor_pod_restarts
 from ..services.latency_monitor import monitor_latency
 from ..services.spanner_monitor import monitor_spanner
+from ..services.cluster_discovery import discover_gke_clusters
 from datetime import datetime
 import asyncio
 
@@ -40,23 +41,28 @@ async def get_metrics():
         # Process each project
         for project in config.projects:
             try:
+                # Auto-discover GKE clusters if not provided in config
+                gke_clusters = project.gke_clusters
+                if not gke_clusters:
+                    gke_clusters = await discover_gke_clusters(project.project_id)
+
                 # Run all monitoring tasks concurrently for this project
                 tasks = []
 
                 if project.monitor_url_maps:
                     tasks.append(("url_maps", monitor_url_maps(project.project_id)))
 
-                if project.monitor_gke_pods and project.gke_clusters:
-                    tasks.append(("pods", monitor_gke_pods(project.project_id, project.gke_clusters)))
+                if project.monitor_gke_pods and gke_clusters:
+                    tasks.append(("pods", monitor_gke_pods(project.project_id, gke_clusters)))
 
                 if project.monitor_pubsub:
                     tasks.append(("pubsub", monitor_pubsub(project.project_id)))
 
-                if project.monitor_gke_nodes and project.gke_clusters:
-                    tasks.append(("nodes", monitor_gke_nodes(project.project_id, project.gke_clusters)))
+                if project.monitor_gke_nodes and gke_clusters:
+                    tasks.append(("nodes", monitor_gke_nodes(project.project_id, gke_clusters)))
 
-                if project.monitor_pod_restarts and project.gke_clusters:
-                    tasks.append(("restarts", monitor_pod_restarts(project.project_id, project.gke_clusters)))
+                if project.monitor_pod_restarts and gke_clusters:
+                    tasks.append(("restarts", monitor_pod_restarts(project.project_id, gke_clusters)))
 
                 if project.monitor_latency:
                     tasks.append(("latency", monitor_latency(project.project_id)))

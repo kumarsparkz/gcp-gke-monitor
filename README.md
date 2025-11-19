@@ -75,13 +75,7 @@ Edit `config.json` with your project details:
   "projects": [
     {
       "project_id": "your-project-id",
-      "gke_clusters": [
-        {
-          "name": "your-cluster-name",
-          "location": "us-central1",
-          "type": "regional"
-        }
-      ],
+      "gke_clusters": [],
       "monitor_url_maps": true,
       "monitor_gke_pods": true,
       "monitor_pubsub": true,
@@ -92,6 +86,18 @@ Edit `config.json` with your project details:
     }
   ]
 }
+```
+
+**Note:** The `gke_clusters` array can be left empty `[]` and the application will automatically discover all GKE clusters in the project. Alternatively, you can manually specify clusters if you want to monitor only specific ones:
+
+```json
+"gke_clusters": [
+  {
+    "name": "your-cluster-name",
+    "location": "us-central1",
+    "type": "regional"
+  }
+]
 ```
 
 ### 4. Install Backend Dependencies
@@ -108,6 +114,25 @@ pip install -r requirements.txt
 ```bash
 cd ../frontend
 npm install
+```
+
+### 6. Configure Frontend Environment (Optional)
+
+Create a `.env.local` file in the frontend directory to customize settings:
+
+```bash
+cd frontend
+cp .env.local.example .env.local
+```
+
+Edit `.env.local` to configure:
+- `NEXT_PUBLIC_API_URL`: Backend API URL (default: http://localhost:8000)
+- `NEXT_PUBLIC_REFRESH_INTERVAL`: Auto-refresh interval in seconds (default: 30)
+
+Example:
+```
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_REFRESH_INTERVAL=30
 ```
 
 ## Running the Application
@@ -142,25 +167,34 @@ This will automatically:
 
 1. Open http://localhost:3000 in your browser
 2. Toggle "Pull Metrics" to ON to start monitoring
-3. The dashboard will refresh automatically every 30 seconds
+3. The dashboard will refresh automatically based on your configured interval (default: 30 seconds)
 4. Toggle to OFF to stop pulling metrics and reduce server load
 
 ## Configuration Options
 
+### Backend Configuration (`config.json`)
+
 Each project in `config.json` can be configured with these options:
 
 - `project_id`: GCP project ID (required)
-- `gke_clusters`: Array of GKE cluster configurations
-  - `name`: Cluster name
-  - `location`: Region or zone
-  - `type`: "regional" or "zonal"
-- `monitor_url_maps`: Enable/disable URL map monitoring
-- `monitor_gke_pods`: Enable/disable pod monitoring
-- `monitor_pubsub`: Enable/disable Pub/Sub monitoring
-- `monitor_gke_nodes`: Enable/disable node pool monitoring
-- `monitor_pod_restarts`: Enable/disable restart monitoring
-- `monitor_latency`: Enable/disable latency monitoring
-- `monitor_spanner`: Enable/disable Spanner monitoring
+- `gke_clusters`: Array of GKE cluster configurations (optional - leave empty for auto-discovery)
+  - If empty `[]`: All GKE clusters in the project will be automatically discovered
+  - If specified: Only the listed clusters will be monitored
+    - `name`: Cluster name
+    - `location`: Region or zone
+    - `type`: "regional" or "zonal"
+- `monitor_url_maps`: Enable/disable URL map monitoring (default: true)
+- `monitor_gke_pods`: Enable/disable pod monitoring (default: true)
+- `monitor_pubsub`: Enable/disable Pub/Sub monitoring (default: true)
+- `monitor_gke_nodes`: Enable/disable node pool monitoring (default: true)
+- `monitor_pod_restarts`: Enable/disable restart monitoring (default: true)
+- `monitor_latency`: Enable/disable latency monitoring (default: true)
+- `monitor_spanner`: Enable/disable Spanner monitoring (default: true)
+
+### Frontend Configuration (`.env.local`)
+
+- `NEXT_PUBLIC_API_URL`: Backend API URL (default: http://localhost:8000)
+- `NEXT_PUBLIC_REFRESH_INTERVAL`: Auto-refresh interval in seconds (default: 30)
 
 ## API Endpoints
 
